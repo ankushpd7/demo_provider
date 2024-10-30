@@ -1,3 +1,4 @@
+import 'package:demo_provider/open/login_screen.dart';
 import 'package:demo_provider/provider/auth_provider.dart';
 import 'package:demo_provider/screens/cart_screen.dart';
 import 'package:demo_provider/screens/category_screen.dart';
@@ -19,6 +20,10 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.logout),
             onPressed: () {
               authProvider.logout();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => LoginScreen()),
+                    (Route<dynamic> route) => false,
+              );
             },
           ),
         ],
@@ -28,6 +33,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Welcome to the Shopping App!'),
+            SizedBox(height: 16,),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) => CategoryScreen()));

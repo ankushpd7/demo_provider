@@ -1,5 +1,6 @@
-import 'package:demo_provider/open/signUp_screen.dart';
 import 'package:demo_provider/provider/auth_provider.dart';
+import 'package:demo_provider/screens/home_screen.dart';
+import 'package:demo_provider/open/signUp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,8 +11,12 @@ class LoginScreen extends StatelessWidget {
   Future<void> _login(BuildContext context) async {
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     await authProvider.login(_usernameController.text, _passwordController.text);
+
     if (authProvider.isLoggedIn) {
-      // Optionally show success message
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+            (Route<dynamic> route) => false,
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Login Failed!')));
     }
